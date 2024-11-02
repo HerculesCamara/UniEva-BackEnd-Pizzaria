@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace AppModels;
 
 use App\Http\Enums\TamanhoEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

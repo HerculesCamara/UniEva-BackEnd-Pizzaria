@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\UserService;
 
 /**
  * Class UserController
@@ -22,6 +23,14 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     protected $userService;
+
+     public function __construct(UserService $userService)
+     {
+         $this->userService = $userService;
+     }
+
     public function index()
     {
         $user = User::select('id', 'name', 'email', 'created_at')
@@ -53,13 +62,14 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        $data = $request->all();
+        $user = $this->userService->storeUser($request->all());
 
-        $user = User::create([
+        /* $data = $request->all(); */
+        /* $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-        ]);
+        ]); */
 
         return [
             'status' => 200,
